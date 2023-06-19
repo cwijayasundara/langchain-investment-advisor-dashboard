@@ -1,0 +1,13 @@
+openai
+pandas
+streamlit
+unstructured
+tiktoken
+pinecone-client
+langchain
+yfinance
+wikipedia
+yahooquery
+faiss-cpu
+python-dotenv
+pypdf2
