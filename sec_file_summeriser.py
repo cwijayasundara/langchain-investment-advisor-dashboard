@@ -1,5 +1,6 @@
 import os
 import pinecone
+import investment_advisor_util
 
 from dotenv import load_dotenv, find_dotenv
 from langchain.chat_models import ChatOpenAI
@@ -8,8 +9,6 @@ from langchain.chains.summarize import load_summarize_chain
 from langchain.embeddings import OpenAIEmbeddings
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.vectorstores import Pinecone
-
-import investor_util
 
 _ = load_dotenv(find_dotenv())
 
@@ -58,7 +57,7 @@ summery_text_list = []
 
 
 def fill_in_ten_k_summery_text_list():
-    for url in investor_util.ten_k_file_url_dict.values():
+    for url in investment_advisor_util.ten_k_file_url_dict.values():
         summery_text = summerise_large_pdf(url)
         summery_text_list.append(summery_text)
     return summery_text_list

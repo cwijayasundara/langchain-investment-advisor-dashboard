@@ -1,14 +1,13 @@
 import os
 import pinecone
 import yfinance as yf
-from langchain.chains.summarize import load_summarize_chain
-from langchain.document_loaders import PyPDFLoader
-from langchain.text_splitter import RecursiveCharacterTextSplitter
-
-import investor_util
+import investment_advisor_util
 import pandas as pd
 import streamlit as st
 
+from langchain.chains.summarize import load_summarize_chain
+from langchain.document_loaders import PyPDFLoader
+from langchain.text_splitter import RecursiveCharacterTextSplitter
 from PIL import Image
 from dotenv import load_dotenv, find_dotenv
 from langchain.chat_models import ChatOpenAI
@@ -17,7 +16,7 @@ from yahooquery import Ticker
 from datetime import datetime, timedelta
 from langchain.chains import RetrievalQA
 from langchain.embeddings.openai import OpenAIEmbeddings
-from investor_util import stocks
+from investment_advisor_util import stocks
 
 _ = load_dotenv(find_dotenv())
 
@@ -116,7 +115,7 @@ df_financials['earnings'] = df_financials['earnings']
 df_financials = df_financials.rename(columns={'earnings': 'yearly earnings', 'revenue': 'yearly revenue'})
 
 numeric_cols = ['yearly earnings', 'yearly revenue']
-df_financials[numeric_cols] = df_financials[numeric_cols].applymap(investor_util.format_large_number)
+df_financials[numeric_cols] = df_financials[numeric_cols].applymap(investment_advisor_util.format_large_number)
 df_financials['date'] = df_financials['date'].astype(str)
 df_financials.set_index('date', inplace=True)
 
@@ -136,8 +135,8 @@ tar = ticker.info["targetHighPrice"]
 rec = ticker.info["recommendationKey"].upper()
 
 # Format large numbers
-market_cap = investor_util.format_large_number(market_cap)
-ebitda = investor_util.format_large_number(ebitda)
+market_cap = investment_advisor_util.format_large_number(market_cap)
+ebitda = investment_advisor_util.format_large_number(ebitda)
 
 # Create a dictionary for additional stock data
 additional_data = {
